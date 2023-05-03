@@ -13,7 +13,7 @@
 - indeks cen CPI i PPI
 - zasób pieniądza M3 (broad Money)
 4. W oparcie o dane np. dla roku 2000 oraz 2020 odpowiedz na pytania:
-- czy badana gospodarka jest duża gospodarką?
+- czy badana gospodarka jest duża gospodarką? 
 - czy badan gospodarka jest wysoko rozwiniętą, bogatą gospodarką?
 5. W oparciu o dane z poprzedniego ćwiczenia określ, czy badana gospodarka jest duża/mała i czy jest wysoko/nisko rozwinięta.
 6. Przedstaw na wykresach wielkości PKB  i PKB na osobę  (dla każdej kategorii odrębnie dla  nominalnych i realnych LCU, USD) – wykresy liniowe
