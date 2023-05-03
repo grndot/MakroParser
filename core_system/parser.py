@@ -2,6 +2,11 @@ import requests
 import json
 import pandas as pd
 
+
+indicator_codes = {'IGS_const_dol': 'NE.IMP.GNFS.KD', 'IGS_cur_lcu': 'NE.IMP.GNFS.CN',
+                   'IGS_cur_dol': 'NE.IMP.GNFS.CD', 'IGS_const_lcu': 'NE.IMP.GNFS.KN',
+                   'EGS_const_lsu': 'NE.EXP.GNFS.KN', 'EGS_cur_dol': 'NE.EXP.GNFS.CD',
+                   'EGS_cur_lsu': 'NE.EXP.GNFS.CN', 'EGS_const_dol': 'NE.EXP.GNFS.KD'}
 # Получаем список всех стран
 def get_all_country_names():
     countries_url = "http://api.worldbank.org/v2/country?format=json&per_page=300"
@@ -11,12 +16,14 @@ def get_all_country_names():
         data = json.loads(response.text)
         country_list = [country["id"] for country in data[1] if not country["region"]["value"].startswith("Aggregates")]
     else:
+        country_list = []
         print(f"Ошибка запроса списка стран: {response.status_code}")
     return country_list
-indicator_code = 'NY.GDP.MKTP.KD'
+
+
 
 def get_all_countries(country_list, indicator_code):
-    country_gdp_data = {}
+    country_data = {}
 
 # Получаем данные ВВП для каждой страны
     for country_code in country_list:
@@ -33,16 +40,21 @@ def get_all_countries(country_list, indicator_code):
                 year = entry['date']
                 gdp = entry['value']
 
-                if country_name not in country_gdp_data:
-                    country_gdp_data[country_name] = {}
+                if country_name not in country_data:
+                    country_data[country_name] = {}
 
-                country_gdp_data[country_name][year] = gdp
+                country_data[country_name][year] = gdp
 
         else:
             print(f"Ошибка запроса данных ВВП для страны {country_code}: {response.status_code}")
-    return country_gdp_data
+    return pd.DataFrame(country_data)
 
 
-# Преобразуем словарь в датафрейм
+if __name__ == '__main__':
+    indicator_code = 'NE.EXP.GNFS.KD'
+    country_names = get_all_country_names()
+    df = get_all_countries(country_names, indicator_code)
+    print(df)
+    df.to_csv('../data/EGS_const_dol.csv')
 
 
