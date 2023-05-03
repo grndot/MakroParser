@@ -1,12 +1,20 @@
-import plotly.graph_objects as go
-import plotly.io as pio
+import pandas as pd
+import plotly.express as px
 
-x = [1, 2, 3, 4]
-y = [10, 15, 13, 17]
+# Вместо 'selected_df', я использую 'df' для примера
+# Создайте свой DataFrame 'selected_df' со столбцом 'Date' в качестве индекса
+data = {'Country1': [1230, 2340, 3450],
+        'Country2': [3210, 6540, 9870]}
+index = pd.date_range('2020-01-01', periods=3, freq='Y')
 
-trace = go.Scatter(x=x, y=y, mode='markers+lines')
+df = pd.DataFrame(data, index=index)
 
-fig = go.Figure(trace)
+# Преобразование данных без изменения индекса
+df_stacked = df.stack().reset_index()
+df_stacked.columns = ['Date', 'Country', 'GDP']
 
-# Сохранение графика в виде HTML-файла
-pio.write_html(fig, file="example_plot.html", auto_open=True)
+# Создание интерактивного графика с помощью Plotly Express
+fig = px.line(df_stacked, x='Date', y='GDP', color='Country', title='GDP by Country')
+
+# Отображение графика
+fig.show()
