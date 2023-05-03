@@ -1,8 +1,8 @@
 I slide (2000-2020 graphics):
-Balance of trade.
-GNP.
-GNP/p
-Labor force
+Balance of trade. (Export - Import)
+GNP. (GPD + BoT↑)
+GNP/p (GNP / population)
+Labor force 
 Unemployment rate
 Broad money 
 
